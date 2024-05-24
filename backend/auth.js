@@ -1,11 +1,23 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const connection = require('./database');
+const cors = require('cors')
+const app = express();
+
+app.use(express.json());
+
+app.use(cors())
+
+app.listen(3000, () => {
+    console.log(`Server is running on http://localhost`);
+  });
+
+//   app.use(express().cors)
 
 const router = express.Router();
 
 // Registration endpoint
-router.post('/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { email, password, google_id, firstName, lastName } = req.body;
 
     if (google_id) {
@@ -39,7 +51,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Sign-in endpoint
-router.post('/signin', async (req, res) => {
+app.post('/signin', async (req, res) => {
     const { email, password, google_id } = req.body;
 
     if (google_id) {
@@ -70,7 +82,7 @@ router.post('/signin', async (req, res) => {
 });
 
 // Endpoint to retrieve all users
-router.get('/users', (req, res) => {
+app.get('/users', (req, res) => {
     const sql = 'SELECT * FROM users';
     connection.query(sql, (err, results) => {
         if (err) {

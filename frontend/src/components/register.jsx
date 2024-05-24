@@ -37,7 +37,7 @@ function SignUpForm({ redirectToSignIn }) {
       setError('');
       // Redirect to sign-in after a short delay
       setTimeout(() => {
-        navigate("/StudentsDetails") // Call navigate function after successful sign-up
+        navigate("/login") // Call navigate function after successful sign-up
       }, 2000);
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data === 'Email already exists') {

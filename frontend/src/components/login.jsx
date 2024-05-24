@@ -10,18 +10,19 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  // const { login } = useAuth();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/signin', { email: username, password });
-      login();
+      // login();
       setUsername('');
       setPassword('');
       setError('');
-      navigate("/memberlist");
+      navigate("/StudentForm");
     } catch (error) {
+      console.log(error)
       if (error.response && error.response.status === 401) {
         setError('Invalid email or password.');
       } else if (error.response && error.response.status === 409) {
@@ -41,7 +42,6 @@ const LoginForm = () => {
           <input
             type="text"
             placeholder="Enter Email"
-            autocomplete="off"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required

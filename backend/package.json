@@ -12,7 +12,4 @@
   "scripts": {
     "start": "concurrently \"node auth.js\" \"node database.js\" \"node server.js\""
   }
-
 }
-
- 
