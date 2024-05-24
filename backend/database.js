@@ -1,6 +1,7 @@
 const mysql = require('mysql');
-const express=require('express');
-const app=express();
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser'); // Import bodyParser for parsing JSON request bodies
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -17,33 +18,37 @@ connection.connect((err) => {
     console.log('Connected to MySQL database as id ' + connection.threadId);
 });
 
-module.exports = connection;
+// Middleware for parsing JSON request bodies
+app.use(bodyParser.json());
 
+// Define route for handling POST request to '/studentform'
 app.post('/studentform', (req, res) => {
-    const { stdname, marks: { english, java, python, cpp } } = req.body;
+    const { studentName, HallticketNo, marks: { english, java, python, cpp } } = req.body;
     let sql = 'SELECT * FROM students WHERE hallticketNo = ?';
-    db.query(sql, [hallticketNo], (err, results) => {
+    connection.query(sql, [HallticketNo], (err, results) => {
         if (err) {
             return res.status(500).send(err);
         }
         if (results.length > 0) {
-            return res.status(400).send('Hall-tickect number already exists');
+            return res.status(400).send('Hallticket number already exists');
         }
 
-        sql = 'INSERT INTO students (stdname, hallticketNo,  class) VALUES (?, ?, ?, ?)';
-        db.query(sql, [stdname, hallticketNo,  Class], (err, result) => {
+        sql = 'INSERT INTO students (stdname, hallticketNo) VALUES (?, ?)';
+        connection.query(sql, [studentName, HallticketNo], (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
-            const newRollno = hallticketNo;
-            sql = 'INSERT INTO subjects (hallticketno, java, cpp, python) VALUES (?, ?, ?, ?)';
-            db.query(sql, [newRollno, java, cpp, python, english], (err, result) => {
+            const newRollno = HallticketNo;
+            sql = 'INSERT INTO subjects (hallticketNo, java, cpp, python, english) VALUES (?, ?, ?, ?, ?)';
+            connection.query(sql, [newRollno, java, cpp, python, english], (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
                 }
-                res.redirect('/studentsform');
+                res.status(200).send('Form submitted successfully');
             });
         });
     });
 });
-app.listen(3000,console.log('server starting at port 3000)'));
+
+// Start the server
+app.listen(3000, () => console.log('Server started on port 3000'));
