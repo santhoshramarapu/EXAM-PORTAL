@@ -3,38 +3,34 @@ import axios from 'axios';
 import '../../src/styles/StudentForm.css'; // Import the CSS file with the styles
 
 const StudentForm = () => {
-  // conat [atuDATa, SETsTUdATA] = useState({
-  //   stdname : "",
-    
-  // })
-  const [stdname, setstdname] = useState('');
-  const [HallticketNo, setHallticketNo] = useState('');
-  const [english, setEnglish] = useState(0);
-  const [java, setJava] = useState(0);
-  const [python, setPython] = useState(0);
-  const [cpp, setCpp] = useState(0);
+  const [studentName, setStudentName] = useState('');
+  const [rollNo, setRollNo] = useState('');
+  const [englishMarks, setEnglishMarks] = useState(0);
+  const [javaMarks, setJavaMarks] = useState(0);
+  const [pythonMarks, setPythonMarks] = useState(0);
+  const [cppMarks, setCppMarks] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('/studentform', {
-        stdname,
-        HallticketNo,
+        studentName,
+        rollNo,
         marks: {
-          english: english,
-          java: java,
-          python: python,
-          cpp: cpp
+          english: englishMarks,
+          java: javaMarks,
+          python: pythonMarks,
+          cpp: cppMarks
         }
       });
       console.log(response.data); // Assuming backend returns some response
       // Optionally, you can reset the form fields after successful submission
-      setstdname('');
-      setHallticketNo('');
-      setEnglish(0);
-      setJava(0);
-      setPython(0);
-      setCpp(0);
+      setStudentName('');
+      setRollNo('');
+      setEnglishMarks(0);
+      setJavaMarks(0);
+      setPythonMarks(0);
+      setCppMarks(0);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -48,18 +44,18 @@ const StudentForm = () => {
           <input
             type="text"
             id="studentName"
-            value={studame}
-            onChange={(e) => setstdname(e.target.value)}
+            value={studentName}
+            onChange={(e) => setStudentName(e.target.value)}
             required
           />
         </div>
         <div>
-          <label htmlFor="rollNo">HallticketNO:</label>
+          <label htmlFor="rollNo">Roll Number:</label>
           <input
             type="text"
             id="rollNo"
-            value={HallticketNo}
-            onChange={(e) => setHallticketNo(e.target.value)}
+            value={rollNo}
+            onChange={(e) => setRollNo(e.target.value)}
             required
           />
         </div>
