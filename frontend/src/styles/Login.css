@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+  
+  .center {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .center h2 {
+    text-align: center;
+  }
+  
+  .center input[type="text"],
+  .center input[type="password"],
+  .center input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  
+  .center input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .center input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  .register {
+    text-align: center;
+  }
+  
+  .register a {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  
+  .google-login-button {
+    
+    cursor: pointer;
+    border: none;
+    padding: 0px 63px; /* Adjust padding to match the regular login button */
+    margin-top: 10px; /* Adjust margin to match the regular login button */
+    
+  }
+  
+  
