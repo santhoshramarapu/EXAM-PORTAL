@@ -2,6 +2,7 @@ import { useState } from 'react'
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginForm from './components/Login';
+import SignUpForm from './components/Register';
 
 
 function App() {
@@ -11,12 +12,12 @@ function App() {
     <>
       <Router>
       <Routes>
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/signin" element={<LoginForm />} />
-            {/* <Route path="/signup" element={<SignUpForm />} /> */}
-            {/* <Route path="/logout" element={<LogoutForm />} /> */}
-        </Routes>
-        </Router>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/signup" element={<SignUpForm />} />
+          {/* <Route path="/logout" element={<LogoutForm />} /> */}
+      </Routes>
+      </Router>
     </>
   )
 }

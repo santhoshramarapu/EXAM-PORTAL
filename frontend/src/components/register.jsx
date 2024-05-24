@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../src/style/Register.css'; // Corrected import statement
+import '../../src/styles/Register.css'; // Corrected import statement
 import { useNavigate } from 'react-router-dom';
 
 
@@ -37,7 +37,7 @@ function SignUpForm({ redirectToSignIn }) {
       setError('');
       // Redirect to sign-in after a short delay
       setTimeout(() => {
-        navigate("/signin") // Call navigate function after successful sign-up
+        navigate("/StudentsDetails") // Call navigate function after successful sign-up
       }, 2000);
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data === 'Email already exists') {
