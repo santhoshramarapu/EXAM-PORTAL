@@ -3,19 +3,31 @@ import axios from 'axios';
 import '../../src/styles/StudentForm.css'; // Import the CSS file with the styles
 
 const StudentForm = () => {
-  const [studentName, setStudentName] = useState('');
-  const [rollNo, setRollNo] = useState('');
+  const [stdname, setStdname] = useState('');
+  const [hallticketNo, setHallticketNo] = useState('');
   const [englishMarks, setEnglishMarks] = useState(0);
   const [javaMarks, setJavaMarks] = useState(0);
   const [pythonMarks, setPythonMarks] = useState(0);
   const [cppMarks, setCppMarks] = useState(0);
+  const [error, setError] = useState('');
+  const [submissionError, setSubmissionError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Clear previous errors
+    setError('');
+    setSubmissionError('');
+
+    // Validate input fields
+    if (!stdname || !hallticketNo || englishMarks === '' || javaMarks === '' || pythonMarks === '' || cppMarks === '') {
+      setError('Please fill in all fields.');
+      return;
+    }
+
     try {
-      const response = await axios.post('/studentform', {
-        studentName,
-        rollNo,
+      const response = await axios.post('http://localhost:3000/studentform', { // Update URL to match your backend port
+        stdname,
+        hallticketNo,
         marks: {
           english: englishMarks,
           java: javaMarks,
@@ -25,37 +37,44 @@ const StudentForm = () => {
       });
       console.log(response.data); // Assuming backend returns some response
       // Optionally, you can reset the form fields after successful submission
-      setStudentName('');
-      setRollNo('');
+      setStdname('');
+      setHallticketNo('');
       setEnglishMarks(0);
       setJavaMarks(0);
       setPythonMarks(0);
       setCppMarks(0);
     } catch (error) {
+      if (error.response && error.response.status === 400 && error.response.data === 'Hall ticket number already exists') {
+        setSubmissionError('Hall ticket number already exists.');
+      } else {
+        setSubmissionError('Error submitting form. Please try again.');
+      }
       console.error('Error submitting form:', error);
     }
   };
 
   return (
-    <div className="container"> {/* Container div with the specified CSS class */}
+    <div className="container">
       <form className="form" onSubmit={handleSubmit}>
+        {error && <p className="error">{error}</p>}
+        {submissionError && <p className="error">{submissionError}</p>}
         <div>
-          <label htmlFor="studentName">Student Name:</label>
+          <label htmlFor="stdname">Student Name:</label>
           <input
             type="text"
-            id="studentName"
-            value={studentName}
-            onChange={(e) => setStudentName(e.target.value)}
+            id="stdname"
+            value={stdname}
+            onChange={(e) => setStdname(e.target.value)}
             required
           />
         </div>
         <div>
-          <label htmlFor="rollNo">Roll Number:</label>
+          <label htmlFor="hallticketNo">Hall Ticket Number:</label>
           <input
             type="text"
-            id="rollNo"
-            value={rollNo}
-            onChange={(e) => setRollNo(e.target.value)}
+            id="hallticketNo"
+            value={hallticketNo}
+            onChange={(e) => setHallticketNo(e.target.value)}
             required
           />
         </div>

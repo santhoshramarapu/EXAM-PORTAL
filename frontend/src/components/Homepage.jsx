@@ -9,7 +9,7 @@ const HomePage = () => {
         <Link to="/studentsform">
           <button>Add Student</button>
         </Link>
-        <Link to="/view-results">
+        <Link to="/ViewResults">
           <button>View Results</button>
         </Link>
       </div>

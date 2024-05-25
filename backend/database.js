@@ -1,7 +1,11 @@
 const mysql = require('mysql');
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const bodyParser = require('body-parser'); // Import bodyParser for parsing JSON request bodies
+
+app.use(bodyParser.json());
+app.use(cors());
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -18,37 +22,29 @@ connection.connect((err) => {
     console.log('Connected to MySQL database as id ' + connection.threadId);
 });
 
-// Middleware for parsing JSON request bodies
-app.use(bodyParser.json());
-
-// Define route for handling POST request to '/studentform'
 app.post('/studentform', (req, res) => {
-    const { studentName, HallticketNo, marks: { english, java, python, cpp } } = req.body;
-    let sql = 'SELECT * FROM students WHERE hallticketNo = ?';
-    connection.query(sql, [HallticketNo], (err, results) => {
+    const { stdname, hallticketNo, englishMarks, javaMarks, pythonMarks, cppMarks } = req.body;
+
+    // Insert student data into 'students' table
+    let sqlStudent = 'INSERT INTO students (hallticketNo, stdname) VALUES (?, ?)';
+    connection.query(sqlStudent, [hallticketNo, stdname], (err, result) => {
         if (err) {
-            return res.status(500).send(err);
-        }
-        if (results.length > 0) {
-            return res.status(400).send('Hallticket number already exists');
+            console.error('Error inserting into students:', err);
+            return res.status(500).send('Error inserting into students');
         }
 
-        sql = 'INSERT INTO students (stdname, hallticketNo) VALUES (?, ?)';
-        connection.query(sql, [studentName, HallticketNo], (err, result) => {
+        // Insert subject data into 'subjects' table
+        let sqlSubject = 'INSERT INTO subjects (hallticketNo, english, java, python, cpp) VALUES (?, ?, ?, ?, ?)';
+        connection.query(sqlSubject, [hallticketNo, englishMarks, javaMarks, pythonMarks, cppMarks], (err, result) => {
             if (err) {
-                return res.status(500).send(err);
+                console.error('Error inserting into subjects:', err);
+                return res.status(500).send('Error inserting into subjects');
             }
-            const newRollno = HallticketNo;
-            sql = 'INSERT INTO subjects (hallticketNo, java, cpp, python, english) VALUES (?, ?, ?, ?, ?)';
-            connection.query(sql, [newRollno, java, cpp, python, english], (err, result) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                res.status(200).send('Form submitted successfully');
-            });
+
+            res.status(200).send('Student data inserted successfully');
         });
     });
 });
 
-// Start the server
-app.listen(3000, () => console.log('Server started on port 3000'));
+
+app.listen(3000, () => console.log('Server starting at port 3000'));

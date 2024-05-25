@@ -1,0 +1,36 @@
+/* ResultPage.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.result-page-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+.result-page-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+.result-page-container p {
+    color: #555;
+}
+
+@media (max-width: 480px) {
+    .result-page-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
