@@ -15,7 +15,7 @@ const ViewResults = () => {
             setErrorMessage('');
 
             // Proceed to navigate to ResultsPage
-            navigate(`/ResultsPage/${hallticketNo}`);
+            navigate(`/ResultsPage`);
         }
     };
 

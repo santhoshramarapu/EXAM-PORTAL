@@ -19,17 +19,8 @@ const StudentForm = () => {
     setSubmissionError('');
 
     // Validate input fields
-    if (!stdname || !hallticketNo || englishMarks === '' || javaMarks === '' || pythonMarks === '' || cppMarks === '') {
+    if (!stdname || !hallticketNo || !englishMarks || !javaMarks || !pythonMarks || !cppMarks) {
       setError('Please fill in all fields.');
-      return;
-    }
-
-    // Convert hallticketNo to an integer
-    const hallticketNoInt = parseInt(hallticketNo, 10);
-
-    // Validate hallticketNo
-    if (isNaN(hallticketNoInt)) {
-      setError('Hall Ticket Number must be a valid number.');
       return;
     }
 
@@ -39,33 +30,19 @@ const StudentForm = () => {
     const pythonMarksInt = parseInt(pythonMarks, 10);
     const cppMarksInt = parseInt(cppMarks, 10);
 
-    // Validate marks
-    if (
-      isNaN(englishMarksInt) ||
-      isNaN(javaMarksInt) ||
-      isNaN(pythonMarksInt) ||
-      isNaN(cppMarksInt)
-    ) {
-      setError('All marks must be valid numbers.');
-      return;
-    }
-
     // Determine result based on marks
     const result = englishMarksInt >= 35 && javaMarksInt >= 35 && pythonMarksInt >= 35 && cppMarksInt >= 35 ? 'Pass' : 'Fail';
 
     try {
-      const response = await axios.post('http://localhost:3000/studentform', { // Update URL to match your backend port
-        hallticketNo: hallticketNoInt,
+      const response = await axios.post('http://localhost:3001/student/studentform', {
         stdname,
-        marks: {
-          english: englishMarksInt,
-          java: javaMarksInt,
-          python: pythonMarksInt,
-          cpp: cppMarksInt
-        },
-        result
+        hallticketNo,
+        english: englishMarksInt,
+        java: javaMarksInt,
+        python: pythonMarksInt,
+        cpp: cppMarksInt
       });
-      console.log(response.data); // Assuming backend returns some response
+      console.log(response.data);
       // Optionally, you can reset the form fields after successful submission
       setStdname('');
       setHallticketNo('');
@@ -85,9 +62,10 @@ const StudentForm = () => {
 
   return (
     <div className="container">
+      <h2>Student Form</h2>
+      {error && <p className="error">{error}</p>}
+      {submissionError && <p className="error">{submissionError}</p>}
       <form className="form" onSubmit={handleSubmit}>
-        {error && <p className="error">{error}</p>}
-        {submissionError && <p className="error">{submissionError}</p>}
         <div>
           <label htmlFor="stdname">Student Name:</label>
           <input

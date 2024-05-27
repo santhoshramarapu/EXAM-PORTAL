@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import '../../src/styles/Header.css';
 
+
 function Header() {
   const { isLoggedIn } = useAuth();
 
@@ -14,7 +15,7 @@ function Header() {
           {isLoggedIn ? (
             <li><Link to="/logout">Logout</Link></li>
           ) : (
-            <li><Link to="/signin">Sign In</Link></li>
+            <li><Link to="/Login">Sign In</Link></li>
           )}
         </ul>
       </nav>

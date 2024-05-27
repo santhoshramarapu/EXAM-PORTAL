@@ -15,12 +15,12 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/signin', { email: username, password });
+      const response = await axios.post('http://localhost:3000/auth/signin', { email: username, password });
       // login();
       setUsername('');
       setPassword('');
       setError('');
-      navigate("/StudentForm");
+      navigate("/Homepage");
     } catch (error) {
       console.log(error)
       if (error.response && error.response.status === 401) {
@@ -34,6 +34,7 @@ const LoginForm = () => {
   };
 
   return (
+    
     <div className="container">
       <div className="center">
         <h2>Login</h2>

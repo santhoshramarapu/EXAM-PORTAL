@@ -1,29 +1,16 @@
+// authRoutes.js
 const express = require('express');
 const bcrypt = require('bcrypt');
-const connection = require('./database');
-const cors = require('cors')
-const app = express();
-
-app.use(express.json());
-
-app.use(cors())
-
-app.listen(3000, () => {
-    console.log(`Server is running on http://localhost`);
-  });
-
-//   app.use(express().cors)
-
 const router = express.Router();
+const connection = require('./database');
 
 // Registration endpoint
-app.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
     const { email, password, google_id, firstName, lastName } = req.body;
 
     if (google_id) {
         // Google registration logic
     } else {
-        // Normal registration logic
         const hashedPassword = await bcrypt.hash(password, 10);
         const emailCheckQuery = 'SELECT COUNT(*) AS email_count FROM users WHERE email = ?';
 
@@ -43,7 +30,6 @@ app.post('/register', async (req, res) => {
                     console.error('Error executing SQL query: ' + err.stack);
                     return res.status(500).send('Internal Server Error');
                 }
-                // User registered successfully
                 return res.status(201).send('User registered successfully');
             });
         });
@@ -51,13 +37,12 @@ app.post('/register', async (req, res) => {
 });
 
 // Sign-in endpoint
-app.post('/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
     const { email, password, google_id } = req.body;
 
     if (google_id) {
         // Google sign-in logic
     } else {
-        // Normal sign-in logic
         const sql = 'SELECT * FROM users WHERE email = ?';
         connection.query(sql, [email], async (err, results) => {
             if (err) {
@@ -75,14 +60,13 @@ app.post('/signin', async (req, res) => {
                 return res.status(401).send('Incorrect password');
             }
 
-            // Sign-in successful
             return res.status(200).send('Sign-in successful');
         });
     }
 });
 
 // Endpoint to retrieve all users
-app.get('/users', (req, res) => {
+router.get('/users', (req, res) => {
     const sql = 'SELECT * FROM users';
     connection.query(sql, (err, results) => {
         if (err) {

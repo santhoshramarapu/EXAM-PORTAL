@@ -1,60 +1,28 @@
-/* src/styles/Header.css */
+/* Header.css */
+
 .header {
-    background-color: #7b83b1; /* Background color */
-    color: white; /* Text color */
-    padding: 10px; /* Padding around the content */
-    max-height: 100px; /* Maximum height of the header */
-    position: sticky; /* Make the header sticky */
-    top: 0; /* Stick it to the top of the viewport */
-    width: 100vw;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between; /* Space out items to edges */
-    align-items: center; /* Center items vertically */
-  }
-  
-  .logo {
-    margin-right: auto; /* Push the logo to the left */
-  }
-  
+  text-align: center;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.logo {
+  margin: 0;
+}
+
+/* Mobile Compatibility */
+@media only screen and (max-width: 600px) {
   .nav-links {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex; /* Make the list items flex items */
-    column-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .nav-links li {
-    margin-left: 10px; /* Adjust margin */
-  }
-  
-  .nav-links li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .nav-links li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Media query for smaller screens */
-  @media screen and (max-width: 768px) {
-    nav {
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center align items */
-    }
-  
-    .nav-links {
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center align items */
-      margin-top: 10px; /* Add margin at the top */
-    }
-  
-    .nav-links li {
-      margin: 10px 0; /* Adjust margin */
-    }
-  }
-  
+}

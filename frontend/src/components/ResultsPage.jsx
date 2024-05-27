@@ -11,7 +11,7 @@ const ResultPage = () => {
     useEffect(() => {
         const fetchResult = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/result/${hallticketNo}`);
+                const response = await axios.get(`http://localhost:3001/student/ResultsPage`);
                 setResult(response.data);
                 setError('');
             } catch (err) {
@@ -22,6 +22,7 @@ const ResultPage = () => {
 
         fetchResult();
     }, [hallticketNo]);
+    
 
     return (
         <div className="result-page-container">
@@ -30,13 +31,18 @@ const ResultPage = () => {
             {result && (
                 <div>
                     <p><strong>Hall Ticket Number:</strong> {result.hallticketNo}</p>
-                    <p><strong>Name:</strong> {result.name}</p>
-                    <p><strong>Marks:</strong> {result.marks}</p>
-                    <p><strong>Grade:</strong> {result.grade}</p>
+                    <p><strong>Name:</strong> {result.stdname}</p>
+                    <p><strong>English Marks:</strong> {result.english}</p>
+                    <p><strong>Java Marks:</strong> {result.java}</p>
+                    <p><strong>Python Marks:</strong> {result.python}</p>
+                    <p><strong>C++ Marks:</strong> {result.cpp}</p>
+                    <p><strong>Total Marks:</strong> {result.totalMarks}</p>
+                    <p><strong>Grade:</strong> {result.result}</p>
                 </div>
             )}
         </div>
     );
+    
 };
 
 export default ResultPage;
