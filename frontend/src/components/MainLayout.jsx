@@ -15,9 +15,9 @@ const MainLayout = () => {
 
   return (
     <div className="main-layout">
-      <div className="accordion-container">
+      {/* <div className="accordion-container">
         <Accordion items={accordionItems} />
-      </div>
+      </div> */}
       <div className="content-container">
         <Outlet /> {/* This will render the nested routes' content */}
         <HomePage/>

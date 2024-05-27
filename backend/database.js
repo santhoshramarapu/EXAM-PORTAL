@@ -25,14 +25,9 @@ connection.connect((err) => {
 app.post('/studentform', (req, res) => {
     const { stdname, hallticketNo, englishMarks, javaMarks, pythonMarks, cppMarks } = req.body;
 
-    // Calculate total marks
-    const marks = englishMarks + javaMarks + pythonMarks + cppMarks;
-    // Determine result
-    const result = marks > 150 ? 'Pass' : 'Fail';
-
     // Insert student data into 'students' table
-    let sqlStudent = 'INSERT INTO students (hallticketNo, stdname, marks, result) VALUES (?, ?, ?, ?)';
-    connection.query(sqlStudent, [hallticketNo, stdname, marks, result], (err, result) => {
+    let sqlStudent = 'INSERT INTO students (hallticketNo, stdname) VALUES (?, ?)';
+    connection.query(sqlStudent, [hallticketNo, stdname], (err, result) => {
         if (err) {
             console.error('Error inserting into students:', err);
             return res.status(500).send('Error inserting into students');

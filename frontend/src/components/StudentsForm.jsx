@@ -5,10 +5,10 @@ import '../../src/styles/StudentForm.css'; // Import the CSS file with the style
 const StudentForm = () => {
   const [stdname, setStdname] = useState('');
   const [hallticketNo, setHallticketNo] = useState('');
-  const [englishMarks, setEnglishMarks] = useState(0);
-  const [javaMarks, setJavaMarks] = useState(0);
-  const [pythonMarks, setPythonMarks] = useState(0);
-  const [cppMarks, setCppMarks] = useState(0);
+  const [englishMarks, setEnglishMarks] = useState('');
+  const [javaMarks, setJavaMarks] = useState('');
+  const [pythonMarks, setPythonMarks] = useState('');
+  const [cppMarks, setCppMarks] = useState('');
   const [error, setError] = useState('');
   const [submissionError, setSubmissionError] = useState('');
 
@@ -24,25 +24,55 @@ const StudentForm = () => {
       return;
     }
 
+    // Convert hallticketNo to an integer
+    const hallticketNoInt = parseInt(hallticketNo, 10);
+
+    // Validate hallticketNo
+    if (isNaN(hallticketNoInt)) {
+      setError('Hall Ticket Number must be a valid number.');
+      return;
+    }
+
+    // Convert marks to integers
+    const englishMarksInt = parseInt(englishMarks, 10);
+    const javaMarksInt = parseInt(javaMarks, 10);
+    const pythonMarksInt = parseInt(pythonMarks, 10);
+    const cppMarksInt = parseInt(cppMarks, 10);
+
+    // Validate marks
+    if (
+      isNaN(englishMarksInt) ||
+      isNaN(javaMarksInt) ||
+      isNaN(pythonMarksInt) ||
+      isNaN(cppMarksInt)
+    ) {
+      setError('All marks must be valid numbers.');
+      return;
+    }
+
+    // Determine result based on marks
+    const result = englishMarksInt >= 35 && javaMarksInt >= 35 && pythonMarksInt >= 35 && cppMarksInt >= 35 ? 'Pass' : 'Fail';
+
     try {
       const response = await axios.post('http://localhost:3000/studentform', { // Update URL to match your backend port
+        hallticketNo: hallticketNoInt,
         stdname,
-        hallticketNo,
         marks: {
-          english: englishMarks,
-          java: javaMarks,
-          python: pythonMarks,
-          cpp: cppMarks
-        }
+          english: englishMarksInt,
+          java: javaMarksInt,
+          python: pythonMarksInt,
+          cpp: cppMarksInt
+        },
+        result
       });
       console.log(response.data); // Assuming backend returns some response
       // Optionally, you can reset the form fields after successful submission
       setStdname('');
       setHallticketNo('');
-      setEnglishMarks(0);
-      setJavaMarks(0);
-      setPythonMarks(0);
-      setCppMarks(0);
+      setEnglishMarks('');
+      setJavaMarks('');
+      setPythonMarks('');
+      setCppMarks('');
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data === 'Hall ticket number already exists') {
         setSubmissionError('Hall ticket number already exists.');
@@ -84,7 +114,7 @@ const StudentForm = () => {
             type="number"
             id="englishMarks"
             value={englishMarks}
-            onChange={(e) => setEnglishMarks(parseInt(e.target.value))}
+            onChange={(e) => setEnglishMarks(e.target.value)}
             required
           />
         </div>
@@ -94,7 +124,7 @@ const StudentForm = () => {
             type="number"
             id="javaMarks"
             value={javaMarks}
-            onChange={(e) => setJavaMarks(parseInt(e.target.value))}
+            onChange={(e) => setJavaMarks(e.target.value)}
             required
           />
         </div>
@@ -104,7 +134,7 @@ const StudentForm = () => {
             type="number"
             id="pythonMarks"
             value={pythonMarks}
-            onChange={(e) => setPythonMarks(parseInt(e.target.value))}
+            onChange={(e) => setPythonMarks(e.target.value)}
             required
           />
         </div>
@@ -114,7 +144,7 @@ const StudentForm = () => {
             type="number"
             id="cppMarks"
             value={cppMarks}
-            onChange={(e) => setCppMarks(parseInt(e.target.value))}
+            onChange={(e) => setCppMarks(e.target.value)}
             required
           />
         </div>

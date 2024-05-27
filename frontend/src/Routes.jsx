@@ -8,7 +8,8 @@ import MainLayout from './components/MainLayout';
 import HomePage from './components/Homepage';
 import ViewResults from './components/ViewResults';
 import ResultPage from "./components/ResultsPage";
-
+import Header from './components/Header';
+import AuthContext, { AuthProvider } from './components/AuthContext';
 
 
 
@@ -18,9 +19,13 @@ function App() {
 
   return (
     <>
+    <AuthProvider>
       <Router>
+        <Header/>
       <Routes>
-           <Route path="/login" element={<LoginForm />} />
+      
+          <Route path="/authcontext" element={<AuthContext/>} />
+          <Route path="/login" element={<LoginForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/" element={<MainLayout />}/> 
@@ -31,6 +36,7 @@ function App() {
           {/* <Route path="/logout" element={<LogoutForm />} /> */}
       </Routes>
       </Router>
+      </AuthProvider>
     </>
   )
 }
