@@ -1,57 +1,65 @@
 /* ViewResults.css */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
+
+.view-results-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f0f0f0; /* Light grey background for the whole page */
 }
 
 .view-results-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white; /* White background for the form */
+    padding: 20px; /* Padding inside the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     width: 90%;
-    max-width: 400px;
+    max-width: 400px; /* Max width for the form */
 }
 
 .view-results-container h2 {
-    text-align: center;
-    color: #333;
+    text-align: center; /* Center align the heading */
+    color: #333; /* Dark grey text color */
 }
 
 .view-results-container input, 
 .view-results-container button {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px; /* Padding inside input and button */
+    margin: 10px 0; /* Margin between elements */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.view-results-container input {
+    background-color: #fff; /* White background for input */
 }
 
 .view-results-container button {
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-    border: none;
+    background-color: #007bff; /* Green background for button */
+    color: white; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    border: none; /* Remove default border */
 }
 
 .view-results-container button:hover {
-    background-color: #218838;
+    background-color: #218838; /* Darker green on hover */
+}
+
+.view-results-container .error-message {
+    color: red; /* Red color for error messages */
+    margin-bottom: 10px; /* Margin below error messages */
 }
 
 @media (max-width: 480px) {
     .view-results-container {
-        width: 100%;
-        padding: 15px;
+        width: 100%; /* Full width for smaller screens */
+        padding: 15px; /* Less padding for smaller screens */
     }
 
     .view-results-container input, 
     .view-results-container button {
-        width: calc(100% - 30px);
+        width: calc(100% - 30px); /* Full width minus padding */
     }
 }

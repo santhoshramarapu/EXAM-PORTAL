@@ -17,7 +17,7 @@ const LogoutForm = () => {
 export default LogoutForm;
 
 
-
+// component for going back to the page //
 
     export const GoBack = () => {
 

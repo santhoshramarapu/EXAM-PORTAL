@@ -1,28 +1,77 @@
 /* Header.css */
 
-.header {
-  text-align: center;
+.custom-header {
+  background-color: #333; /* Dark background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding for space around content */
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Space between logo and links */
+  align-items: center; /* Center items vertically */
+  position: sticky; /* Sticky positioning */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000; /* Ensure it is above other elements */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-.nav-links {
-  list-style: none;
-  padding: 0;
+.custom-header .custom-logo {
+  margin: 0; /* Remove default margin from h2 */
+  font-size: 1.5rem; /* Increase font size for the logo */
+  margin-left: 20px; /* Move logo slightly inside from the left */
 }
 
-.nav-links li {
-  display: inline-block;
-  margin: 0 10px;
+.custom-nav {
+  display: flex; /* Flexbox for horizontal layout */
+  width: 100%; /* Full width */
+  justify-content: space-between; /* Space between logo and links */
 }
 
-.logo {
+.custom-nav-links {
+  list-style: none; /* Remove bullet points from list */
+  display: flex; /* Flexbox for horizontal layout */
   margin: 0;
+  padding: 0;
+  margin-right: 20px; /* Move nav links slightly inside from the right */
 }
 
-/* Mobile Compatibility */
-@media only screen and (max-width: 600px) {
-  .nav-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.custom-nav-links li {
+  margin-left: 20px; /* Space between each link */
+}
+
+.custom-nav-links li a {
+  text-decoration: none; /* Remove underline from links */
+  color: white; /* Link color */
+  padding: 8px 15px; /* Padding around links */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.custom-nav-links li a:hover {
+  background-color: #575757; /* Background color on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .custom-header {
+    flex-direction: column; /* Stack header items vertically */
+    align-items: flex-start; /* Align items to the start */
+    padding: 10px; /* Reduce padding for mobile */
+  }
+
+  .custom-nav-links {
+    flex-direction: column; /* Stack nav links vertically */
+    width: 100%; /* Full width */
+    margin-top: 10px; /* Space between logo and links */
+    margin-right: 0; /* Reset margin for mobile */
+  }
+
+  .custom-nav-links li {
+    margin-left: 0;
+    margin-top: 10px; /* Space between each link */
+  }
+
+  .custom-nav-links li a {
+    width: 100%; /* Full width links */
+    text-align: center; /* Center text */
+    padding: 10px; /* Increase padding for touch targets */
   }
 }

@@ -4,25 +4,28 @@ import { useParams } from 'react-router-dom';
 import '../../src/styles/ResultsPage.css';
 
 const ResultPage = () => {
-    const { hallticketNo } = useParams();
+    const { hallTicketNo } = useParams();
     const [result, setResult] = useState(null);
     const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchResult = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/student/ResultsPage`);
+                const response = await axios.get(`http://localhost:3001/student/ResultsPage/${hallTicketNo}`);
                 setResult(response.data);
                 setError('');
             } catch (err) {
-                setError('Result not found');
+                if (err.response && err.response.status === 404) {
+                    setError('Result not found');
+                } else {
+                    setError('An error occurred while fetching the result');
+                }
                 setResult(null);
             }
         };
 
         fetchResult();
-    }, [hallticketNo]);
-    
+    }, [hallTicketNo]);
 
     return (
         <div className="result-page-container">
@@ -42,7 +45,6 @@ const ResultPage = () => {
             )}
         </div>
     );
-    
 };
 
 export default ResultPage;

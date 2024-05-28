@@ -1,80 +1,80 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-  }
-  
-  .sign-up-form {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .sign-up-form h2 {
-    text-align: center;
-  }
-  
-  .sign-up-form input[type="text"],
-  .sign-up-form input[type="email"],
-  .sign-up-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-  }
-  
-  .sign-up-form .submit-btn {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 3px;
-    background-color: #4caf50;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .sign-up-form .submit-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .success-message,
-  .error-message {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  /* Button style */
-  .login-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 11px 126px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top:5px;
-  }
-  
-  .login-button:hover {
-    background-color: #45a049;
-  }
-  
-  
-  .logout-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 11px 126px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top:5px;
-  }
-  
-  .logout-button:hover {
-    background-color: #45a049;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.sign-up-form {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.sign-up-form h2 {
+  text-align: center;
+}
+
+.sign-up-form input[type="text"],
+.sign-up-form input[type="email"],
+.sign-up-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.sign-up-form .submit-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.sign-up-form .submit-btn:hover {
+  background-color:#007bff;
+}
+
+.success-message,
+.error-message {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Button style */
+.login-button {
+  background-color: #007bff;
+  color: white;
+  padding: 11px 126px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top:5px;
+}
+
+.login-button:hover {
+  background-color: #007bff;
+}
+
+
+.logout-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 11px 126px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top:5px;
+}
+
+.logout-button:hover {
+  background-color: #45a049;
+}

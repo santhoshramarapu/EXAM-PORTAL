@@ -14,22 +14,24 @@ const ViewResults = () => {
             // Reset error message if there was one
             setErrorMessage('');
 
-            // Proceed to navigate to ResultsPage
-            navigate(`/ResultsPage`);
+            // Proceed to navigate to ResultsPage with hallticketNo as parameter
+            navigate(`/ResultsPage/${hallticketNo}`);
         }
     };
 
     return (
-        <div className="view-results-container">
-            <h2>View Results</h2>
-            <input
-                type="text"
-                placeholder="Enter Hall Ticket Number"
-                value={hallticketNo}
-                onChange={(e) => setHallticketNo(e.target.value)}
-            />
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <button onClick={handleViewResults}>View Results</button>
+        <div className="view-results-wrapper">
+            <div className="view-results-container">
+                <h2>View Results</h2>
+                <input
+                    type="text"
+                    placeholder="Enter Hall Ticket Number"
+                    value={hallticketNo}
+                    onChange={(e) => setHallticketNo(e.target.value)}
+                />
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                <button onClick={handleViewResults}>View Results</button>
+            </div>
         </div>
     );
 };

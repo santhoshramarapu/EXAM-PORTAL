@@ -7,9 +7,10 @@ import SignUpForm from './components/Register';
 import StudentForm from './components/StudentsForm';
 import HomePage from './components/Homepage';
 import ViewResults from './components/ViewResults';
-import ResultPage from "./components/ResultsPage";
+import ResultPage  from './components/ResultsPage';
 import Header from './components/Header';
 import AuthContext, { AuthProvider } from './components/AuthContext';
+
 
 
 
@@ -30,7 +31,7 @@ function App() {
            <Route path="/Homepage" element={<HomePage />} />
           <Route path="/Studentsform" element={<StudentForm/>}/>
           <Route path="/ViewResults" element={<ViewResults />} /> 
-          <Route path="/ResultsPage" element={<ResultPage/>} />
+          <Route path="/ResultsPage/:hallTicketNo" element={<ResultPage/>} />
           <Route path="/logout" element={<LogoutForm/>} />
       </Routes>
       </div>
