@@ -14,18 +14,25 @@ router.post('/studentform', (req, res) => {
         return res.status(400).send('Invalid data format.');
     }
 
-    // connection.getConnection((err, connection) => {
-    //     if (err) {
-    //         console.error('Error getting connection from pool:', err);
-    //         return res.status(500).send('Database error.');
-    //     }
+   
+    const checkHallticketQuery = 'SELECT hallticketNo FROM students WHERE hallticketNo = ?';
+    connection.query(checkHallticketQuery, [hallticketNo], (err, results) => {
+        if (err) {
+            console.error('Error checking hallticketNo:', err);
+            connection.rollback(() => {
+                //   connection.release();
+                res.status(500).send('Database error.');
+            });
+            return;
+        }
 
-    // connection.beginTransaction((err) => {
-    //     if (err) {
-    //         console.error('Error beginning transaction:', err);
-    //         connection.release();
-    //         return res.status(500).send('Database error.');
-    //     }
+        if (results.length > 0) {
+            connection.rollback(() => {
+                //connection.release();
+                res.status(400).send('Hallticket number already exists. Please use a different hallticket number.');
+            });
+            return;
+        }
 
     const insertStudentQuery = `
                 INSERT INTO students (hallticketNo, stdname)
@@ -63,7 +70,7 @@ router.post('/studentform', (req, res) => {
         if (err) {
             console.error('Error inserting into students:', err);
             connection.rollback(() => {
-                // connection.release();
+              
                 res.status(500).send('Error inserting into students.');
             });
             return;
@@ -73,7 +80,7 @@ router.post('/studentform', (req, res) => {
             if (err) {
                 console.error('Error inserting into subjects:', err);
                 connection.rollback(() => {
-                    // connection.release();
+                   
                     res.status(500).send('Error inserting into subjects.');
                 });
                 return;
@@ -83,7 +90,7 @@ router.post('/studentform', (req, res) => {
                 if (err) {
                     console.error('Error updating student marks:', err);
                     connection.rollback(() => {
-                        // connection.release();
+                       
                         res.status(500).send('Error updating student marks.');
                     });
                     return;
@@ -93,20 +100,19 @@ router.post('/studentform', (req, res) => {
                     if (err) {
                         console.error('Error committing transaction:', err);
                         connection.rollback(() => {
-                            // connection.release();
+                           
                             res.status(500).send('Error committing transaction.');
                         });
                         return;
                     }
 
-                    // connection.release();
+                  
                     res.status(200).send('Student data inserted successfully');
                 });
             });
         });
     });
-    // });
-    // });
+});
 });
 
 
