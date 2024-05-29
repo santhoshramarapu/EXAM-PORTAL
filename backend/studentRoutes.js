@@ -13,7 +13,10 @@ router.post('/studentform', (req, res) => {
     if (!stdname || !hallticketNo || isNaN(hallticketNo) || isNaN(english) || isNaN(java) || isNaN(python) || isNaN(cpp)) {
         return res.status(400).send('Invalid data format.');
     }
-
+    
+    if (english > 100 || java > 100 || python > 100 || cpp > 100) {
+        return res.status(400).send('Marks should be less than 100.');
+    }
    
     const checkHallticketQuery = 'SELECT hallticketNo FROM students WHERE hallticketNo = ?';
     connection.query(checkHallticketQuery, [hallticketNo], (err, results) => {
@@ -150,6 +153,21 @@ router.get('/ResultsPage/:hallticketno', (req, res) => {
     });
 });
 
+
+
+//to get the information all details//
+router.get('/Results', (req, res) => {
+    const getStudentsQuery = 'SELECT * FROM students;';
+    
+    connection.query(getStudentsQuery, (err, results) => {
+      if (err) {
+        console.error('Error fetching students:', err);
+        return res.status(500).send('Error fetching students.');
+      }
+      res.status(200).json(results);
+    });
+  });
+  
 
 
 module.exports = router;
