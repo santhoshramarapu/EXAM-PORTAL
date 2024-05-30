@@ -44,13 +44,6 @@
     position: relative;
   }
   
-  .edit-icon {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    cursor: pointer;
-  }
-  
   .error {
     color: red;
     font-weight: bold;

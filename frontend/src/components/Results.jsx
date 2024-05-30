@@ -48,7 +48,7 @@ const Results = () => {
             </tr>
           </thead>
           <tbody>
-            {results.map((result, index) => ( // Removed unnecessary check for array
+            {results.map((result, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{result.hallticketNo}</td>
@@ -56,7 +56,7 @@ const Results = () => {
                 <td>{result.totalMarks}</td>
                 <td>{result.result}</td>
                 <td>
-                  <Link to={`/viewresults`}>Details</Link>
+                  <Link to={`/viewresults/${result.hallticketNo}`}>Details</Link>
                 </td>
               </tr>
             ))}

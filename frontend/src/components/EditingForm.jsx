@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FaEdit } from 'react-icons/fa';
 import axios from 'axios';
-import '../../src/styles/EditingForm.css'
+import '../../src/styles/EditingForm.css';
 import MainLayout from './MainLayout';
+
 
 const EditingComponent = ({ setIsEditing, studentData }) => {
   const [stdname, setStdname] = useState(studentData.stdname);
@@ -17,6 +17,7 @@ const EditingComponent = ({ setIsEditing, studentData }) => {
     try {
       const response = await axios.put(`http://localhost:3001/student/studentform/${hallticketNo}`, {
         stdname,
+        hallticketNo,
         englishMarks,
         javaMarks,
         pythonMarks,
@@ -32,73 +33,77 @@ const EditingComponent = ({ setIsEditing, studentData }) => {
 
   return (
     <MainLayout>
-    <form className="form" onSubmit={handleEditSubmit}>
-      <div className="input-wrapper">
-        <label htmlFor="stdname">Student Name:</label>
-        <input
-          type="text"
-          id="stdname"
-          value={stdname}
-          onChange={(e) => setStdname(e.target.value)}
-          required
-        />
+      <div className="form-wrapper">
+        <div className="form-container">
+          <h2>Edit Student Form</h2>
+          <form onSubmit={handleEditSubmit}>
+            <div className="input-wrapper">
+              <label htmlFor="stdname">Student Name:</label>
+              <input
+                type="text"
+                id="stdname"
+                value={stdname}
+                onChange={(e) => setStdname(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="hallticketNo">Hall Ticket Number:</label>
+              <input
+                type="text"
+                id="hallticketNo"
+                value={hallticketNo}
+                onChange={(e) => setHallticketNo(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="englishMarks">English Marks:</label>
+              <input
+                type="number"
+                id="englishMarks"
+                value={englishMarks}
+                onChange={(e) => setEnglishMarks(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="javaMarks">Java Marks:</label>
+              <input
+                type="number"
+                id="javaMarks"
+                value={javaMarks}
+                onChange={(e) => setJavaMarks(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="pythonMarks">Python Marks:</label>
+              <input
+                type="number"
+                id="pythonMarks"
+                value={pythonMarks}
+                onChange={(e) => setPythonMarks(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="cppMarks">C++ Marks:</label>
+              <input
+                type="number"
+                id="cppMarks"
+                value={cppMarks}
+                onChange={(e) => setCppMarks(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Update</button>
+            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+          </form>
+        </div>
       </div>
-      <div className="input-wrapper">
-        <label htmlFor="hallticketNo">Hall Ticket Number:</label>
-        <input
-          type="text"
-          id="hallticketNo"
-          value={hallticketNo}
-          onChange={(e) => setHallticketNo(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-wrapper">
-        <label htmlFor="englishMarks">English Marks:</label>
-        <input
-          type="number"
-          id="englishMarks"
-          value={englishMarks}
-          onChange={(e) => setEnglishMarks(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-wrapper">
-        <label htmlFor="javaMarks">Java Marks:</label>
-        <input
-          type="number"
-          id="javaMarks"
-          value={javaMarks}
-          onChange={(e) => setJavaMarks(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-wrapper">
-        <label htmlFor="pythonMarks">Python Marks:</label>
-        <input
-          type="number"
-          id="pythonMarks"
-          value={pythonMarks}
-          onChange={(e) => setPythonMarks(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-wrapper">
-        <label htmlFor="cppMarks">C++ Marks:</label>
-        <input
-          type="number"
-          id="cppMarks"
-          value={cppMarks}
-          onChange={(e) => setCppMarks(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit">Update</button>
-      <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-    </form>
     </MainLayout>
   );
-  
 };
 
 export default EditingComponent;

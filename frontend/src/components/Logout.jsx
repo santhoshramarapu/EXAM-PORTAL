@@ -32,5 +32,20 @@ export const GoBackButton = ({ position }) => {
   );
 };
 
+//component for edit button in result page //
+
+export const EditButton = ({position }) => {
+  const navigate = useNavigate();
+   
+   const Edit = () => {
+    navigate('/studentsForm'); 
+   }
+    
+
+  return (
+    <button onClick={Edit} style={{ position: 'absolute', ...position, backgroundColor: 'blue', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}>Edit</button>
+  );
+};
+
 
 
