@@ -38,7 +38,7 @@ export const EditButton = ({position }) => {
   const navigate = useNavigate();
    
    const Edit = () => {
-    navigate('/studentsForm'); 
+    navigate('/EditingForm'); 
    }
     
 

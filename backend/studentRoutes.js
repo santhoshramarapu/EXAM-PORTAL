@@ -169,5 +169,97 @@ router.get('/Results', (req, res) => {
   });
   
 
+//updating the data //
+router.put('/edit/:hallticketNo', (req, res) => {
+    const { hallticketNo } = req.params;
+    const { english, java, python, cpp } = req.body;
+
+    // Validate marks to be within 0 to 100
+    if (
+        isNaN(english) || english < 0 || english > 100 ||
+        isNaN(java) || java < 0 || java > 100 ||
+        isNaN(python) || python < 0 || python > 100 ||
+        isNaN(cpp) || cpp < 0 || cpp > 100
+    ) {
+        return res.status(400).send('Invalid marks. Marks should be between 0 and 100.');
+    }
+
+    const updateSubjectsQuery = `
+        UPDATE subjects
+        SET english = ?, java = ?, python = ?, cpp = ?
+        WHERE hallticketNo = ?;
+    `;
+
+    const updateStudentMarksQuery = `
+        UPDATE students
+        SET totalmarks = (
+                SELECT english + java + python + cpp
+                FROM subjects
+                WHERE subjects.hallticketNo = students.hallticketNo
+            ),
+            result = (
+                CASE
+                    WHEN (
+                        SELECT english + java + python + cpp
+                        FROM subjects
+                        WHERE subjects.hallticketNo = students.hallticketNo
+                    ) > 150 THEN 'Pass'
+                    ELSE 'Fail'
+                END
+            )
+        WHERE hallticketNo = ?;
+    `;
+
+    // db.getConnection((err, connection) => {
+    //     if (err) {
+    //         console.error('Error getting connection from db:', err);
+    //         return res.status(500).send('Database error.');
+    //     }
+
+    //     connection.beginTransaction((err) => {
+    //         if (err) {
+    //             console.error('Error beginning transaction:', err);
+    //             // connection.release();
+    //             return res.status(500).send('Database error.');
+    //         }
+
+    connection.query(updateSubjectsQuery, [english, java, python, cpp, hallticketNo], (err) => {
+        if (err) {
+            console.error('Error updating subjects:', err);
+            connection.rollback(() => {
+                // connection.release();
+                res.status(500).send('Error updating subjects.');
+            });
+            return;
+        }
+
+        connection.query(updateStudentMarksQuery, [hallticketNo], (err) => {
+            if (err) {
+                console.error('Error updating student marks:', err);
+                connection.rollback(() => {
+                    // connection.release();
+                    res.status(500).send('Error updating student marks.');
+                });
+                return;
+            }
+
+            connection.commit((err) => {
+                if (err) {
+                    console.error('Error committing transaction:', err);
+                    connection.rollback(() => {
+                        // connection.release();
+                        res.status(500).send('Error committing transaction.');
+                    });
+                    return;
+                }
+
+                //connection.release();
+                res.status(200).send('Student marks updated successfully');
+            });
+        });
+    });
+});
+// });
+// });
 
 module.exports = router;
