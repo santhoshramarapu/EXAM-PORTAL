@@ -262,4 +262,41 @@ router.put('/edit/:hallticketNo', (req, res) => {
 // });
 // });
 
+
+
+
+
+// API to fetch data for bar chart (total marks per student)
+router.get('/barChartData', (req, res) => {
+    const sql = 'SELECT stdname, totalmarks FROM students;';
+    connection.query(sql, (err, results) => {
+      if (err) {
+        return res.status(500).send('Database error.');
+      }
+      res.json(results);
+    });
+  });
+  
+  // API to fetch data for pie chart (individual subject marks per student)
+  router.get('/pieChartData', (req, res) => {
+    const sql = `
+      SELECT
+        s.stdname,
+        sc.english,
+        sc.java,
+        sc.python,
+        sc.cpp
+      FROM
+        students s
+      JOIN
+        subjects sc ON s.hallticketNo = sc.hallticketNo;
+    `;
+    connection.query(sql, (err, results) => {
+      if (err) {
+        return res.status(500).send('Database error.');
+      }
+      res.json(results);
+    });
+  });
+
 module.exports = router;
