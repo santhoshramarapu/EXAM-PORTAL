@@ -8,7 +8,7 @@ const MainLayout = ({children}) => {
   const accordionItems = [
     { title: 'StudentsForm', link: '/StudentsForm' },
     { title: 'Results', link: '/Results' },
-    { title: 'Graph', link: '/Graph' }
+    { title: 'Graph', link: '/dashboard' }
   ];
 
   return (
