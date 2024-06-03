@@ -9,7 +9,6 @@ import StudentForm from './components/StudentsForm';
 import EditingComponent from './components/EditingForm';
 import HomePage from './components/Homepage';
 import Results from './components/Results';
-// import ViewResults from './components/ViewResults';
 import ResultPage from './components/ResultsPage';
 import Graph from './components/dashboard';
 import StudentDashboard from './components/StudentDashboard';
@@ -32,13 +31,11 @@ function App() {
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/studentsform" element={<StudentForm />} />
           <Route path="/EditingForm" element={<EditingComponent/>}/>
-          {/* <Route path="/viewresults" element={<ViewResults />} /> */}
           <Route path="/Results" element={<Results/>}/>
           <Route path="/viewresults/:hallTicketNo" element={<ResultPage />} />
-          {/* <Route path="/Resultspage/:hallTicketNo" element={<ResultPage/>} /> */}
           <Route path="/logout" element={<LogoutForm />} />
-          <Route path="/students" element={<StudentDashboard/>} /> {/* Add this line */}
-          <Route path="/subjects" element={<SubjectDashboard />} /> {/* Add this line */}
+          <Route path="/students" element={<StudentDashboard/>} /> 
+          <Route path="/subjects" element={<SubjectDashboard />} /> 
           <Route path="/Graph" element={<Graph/>}/>
         </Routes>
       </div>

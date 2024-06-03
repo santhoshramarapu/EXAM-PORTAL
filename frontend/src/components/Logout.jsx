@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import Results from './Results';
 
 const LogoutForm = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export const GoBackButton = ({ position }) => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1); // Go back one step in history
+    navigate('/Results'); // Go back one step in history
   };
 
   return (
@@ -34,18 +35,6 @@ export const GoBackButton = ({ position }) => {
 
 //component for edit button in result page //
 
-// export const EditButton = ({position }) => {
-//   const navigate = useNavigate();
-   
-//    const Edit = () => {
-//     navigate('/EditingForm'); 
-//    }
-    
-
-//   return (
-//     <button onClick={Edit} style={{ position: 'absolute', ...position, backgroundColor: 'blue', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}>Edit</button>
-//   );
-// };
 
  export const EditButton = ({ position, handleEdit }) => {
   return (
