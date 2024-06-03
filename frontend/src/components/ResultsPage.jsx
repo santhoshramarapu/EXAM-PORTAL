@@ -41,6 +41,10 @@ const ResultPage = () => {
     fetchResult();
   }, [hallTicketNo]);
 
+  const handleEdit = () => {
+    navigate('/EditingForm', { state: { studentData: result } });
+  };
+
   return (
     <MainLayout>
       <div className="result-page-container">
@@ -62,7 +66,7 @@ const ResultPage = () => {
         )}
         
         <GoBackButton position={buttonPosition} />
-        <EditButton position={editCss} />
+        <EditButton position={editCss} handleEdit={handleEdit} />
       </div>
     </MainLayout>
   );

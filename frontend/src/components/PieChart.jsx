@@ -1,4 +1,3 @@
-// src/components/PieChart.js
 import React from 'react';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 

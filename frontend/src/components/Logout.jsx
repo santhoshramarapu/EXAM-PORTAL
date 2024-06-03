@@ -34,18 +34,35 @@ export const GoBackButton = ({ position }) => {
 
 //component for edit button in result page //
 
-export const EditButton = ({position }) => {
-  const navigate = useNavigate();
+// export const EditButton = ({position }) => {
+//   const navigate = useNavigate();
    
-   const Edit = () => {
-    navigate('/EditingForm'); 
-   }
+//    const Edit = () => {
+//     navigate('/EditingForm'); 
+//    }
     
 
+//   return (
+//     <button onClick={Edit} style={{ position: 'absolute', ...position, backgroundColor: 'blue', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}>Edit</button>
+//   );
+// };
+
+ export const EditButton = ({ position, handleEdit }) => {
   return (
-    <button onClick={Edit} style={{ position: 'absolute', ...position, backgroundColor: 'blue', color: 'white', padding: '10px', border: 'none', borderRadius: '5px' }}>Edit</button>
+    <button
+      onClick={handleEdit}
+      style={{
+        position: 'absolute',
+        ...position,
+        backgroundColor: 'blue',
+        color: 'white',
+        padding: '10px',
+        border: 'none',
+        borderRadius: '5px',
+      }}
+    >
+      Edit
+    </button>
   );
 };
-
-
 

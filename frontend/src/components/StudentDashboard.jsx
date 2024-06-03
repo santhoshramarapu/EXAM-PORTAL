@@ -1,6 +1,6 @@
-// src/components/StudentDashboard.js
 import React, { useState, useEffect } from 'react';
 import CustomBarChart from './BarChart';
+import MainLayout from './MainLayout';
 
 function StudentDashboard() {
   const [data, setData] = useState([]);
@@ -13,10 +13,12 @@ function StudentDashboard() {
   }, []);
 
   return (
+    <MainLayout>
     <div>
       <h1>Student Dashboard</h1>
       <CustomBarChart data={data} />
     </div>
+    </MainLayout>
   );
 }
 

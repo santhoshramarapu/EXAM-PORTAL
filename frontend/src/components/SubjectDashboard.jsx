@@ -1,6 +1,6 @@
-// src/components/SubjectDashboard.js
 import React, { useState, useEffect } from 'react';
 import CustomPieChart from './PieChart';
+import MainLayout from './MainLayout';
 
 function SubjectDashboard() {
   const [data, setData] = useState([]);
@@ -20,10 +20,12 @@ function SubjectDashboard() {
   }, []);
 
   return (
+    <MainLayout>
     <div>
       <h1>Subject Dashboard</h1>
       <CustomPieChart data={data} />
     </div>
+    </MainLayout>
   );
 }
 

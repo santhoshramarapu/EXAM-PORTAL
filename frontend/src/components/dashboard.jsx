@@ -1,22 +1,24 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as  Routes,  Route } from 'react-router-dom';
-import SubjectDashboard from './SubjectDashboard';
-import StudentDashboard from './Subject1Dashboard';
+import { Routes, Route, Link } from 'react-router-dom';
 import MainLayout from './MainLayout';
 import '../../src/styles/dashboard.css';
 
 function Graph() {
   return (
     <MainLayout>
-    <Routes>
-     
-          <Route path="/students" element={ <StudentDashboard/> } />
-          <Route path="/subjects" element={ <SubjectDashboard/> } />
-          
-            <h1>Welcome to the Student Dashboard</h1>
-          
-    </Routes>
+      <div className="dashboard-container">
+        <h1>Welcome to the Students Dashboard</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/students">View Students</Link>
+            </li>
+            <li>
+              <Link to="/subjects">View Subjects</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </MainLayout>
   );
 }

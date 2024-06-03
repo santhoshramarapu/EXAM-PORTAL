@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import '../../src/styles/EditingForm.css';
 import MainLayout from './MainLayout';
 import { GoBackButton } from './Logout';
 
-const EditingComponent = ({ studentData }) => {
-  const [stdname, setStdname] = useState(studentData?.stdname || '');
-  const [hallticketNo, setHallticketNo] = useState(studentData?.hallticketNo || '');
-  const [englishMarks, setEnglishMarks] = useState(studentData?.englishMarks || '');
-  const [javaMarks, setJavaMarks] = useState(studentData?.javaMarks || '');
-  const [pythonMarks, setPythonMarks] = useState(studentData?.pythonMarks || '');
-  const [cppMarks, setCppMarks] = useState(studentData?.cppMarks || '');
+const EditingComponent = () => {
+  const location = useLocation();
+  const data = location.state?.studentData || {};
+
+  const [stdname, setStdname] = useState(data.stdname || '');
+  const [hallticketNo, setHallticketNo] = useState(data.hallticketNo || '');
+  const [englishMarks, setEnglishMarks] = useState(data.english || '');
+  const [javaMarks, setJavaMarks] = useState(data.java || '');
+  const [pythonMarks, setPythonMarks] = useState(data.python || '');
+  const [cppMarks, setCppMarks] = useState(data.cpp || '');
   const [isEditing, setIsEditing] = useState(true);
   const [editMessage, setEditMessage] = useState('');
 
@@ -24,28 +28,17 @@ const EditingComponent = ({ studentData }) => {
         english: Number(englishMarks),
         java: Number(javaMarks),
         python: Number(pythonMarks),
-        cpp: Number(cppMarks)
+        cpp: Number(cppMarks),
       });
       console.log('Edit successful:');
-      
-      // Set the success message and reset the form fields
       setEditMessage('Edit successful');
-      setStdname('');
-      setHallticketNo('');
-      setEnglishMarks('');
-      setJavaMarks('');
-      setPythonMarks('');
-      setCppMarks('');
-      setIsEditing(false); // Exit edit mode
+      setIsEditing(false);
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        // Handle 400 error for invalid marks
         console.error('Invalid marks error:', error.response.data.message);
-        // Display an error message to the user
         setEditMessage('Invalid marks');
       } else {
         console.error('Error editing form:', error);
-        // Handle other errors
       }
     }
   };
@@ -53,17 +46,16 @@ const EditingComponent = ({ studentData }) => {
   const buttonPosition = {
     top: '627px',
     left: '970px',
-};
+  };
 
   const handleCancel = () => {
-    // Reset all the fields to initial values or empty
     setStdname('');
     setHallticketNo('');
     setEnglishMarks('');
     setJavaMarks('');
     setPythonMarks('');
     setCppMarks('');
-    setIsEditing(false); // Exit edit mode
+    setIsEditing(false);
   };
 
   return (
@@ -138,20 +130,9 @@ const EditingComponent = ({ studentData }) => {
           </form>
         </div>
       </div>
-      <GoBackButton position={buttonPosition}/>
+      <GoBackButton position={buttonPosition} />
     </MainLayout>
   );
-};
-
-EditingComponent.propTypes = {
-  studentData: PropTypes.shape({
-    stdname: PropTypes.string.isRequired,
-    hallticketNo: PropTypes.string.isRequired,
-    englishMarks: PropTypes.number.isRequired,
-    javaMarks: PropTypes.number.isRequired,
-    pythonMarks: PropTypes.number.isRequired,
-    cppMarks: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export default EditingComponent;

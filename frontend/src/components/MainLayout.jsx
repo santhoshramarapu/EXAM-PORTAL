@@ -9,7 +9,7 @@ const MainLayout = ({children}) => {
     { title: 'Exam', link: '/dashboard' },
     { title: 'StudentsForm', link: '/StudentsForm' },
     { title: 'Results', link: '/Results' },
-    { title: 'Graph', link: '/dashboard' }
+    { title: 'Graph', link: '/Graph' }
   ];
 
   return (

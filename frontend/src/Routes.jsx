@@ -12,6 +12,8 @@ import Results from './components/Results';
 // import ViewResults from './components/ViewResults';
 import ResultPage from './components/ResultsPage';
 import Graph from './components/dashboard';
+import StudentDashboard from './components/StudentDashboard';
+import SubjectDashboard from './components/SubjectDashboard';
 
 
 
@@ -35,6 +37,8 @@ function App() {
           <Route path="/viewresults/:hallTicketNo" element={<ResultPage />} />
           {/* <Route path="/Resultspage/:hallTicketNo" element={<ResultPage/>} /> */}
           <Route path="/logout" element={<LogoutForm />} />
+          <Route path="/students" element={<StudentDashboard/>} /> {/* Add this line */}
+          <Route path="/subjects" element={<SubjectDashboard />} /> {/* Add this line */}
           <Route path="/Graph" element={<Graph/>}/>
         </Routes>
       </div>
