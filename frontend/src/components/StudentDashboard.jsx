@@ -15,7 +15,7 @@ function StudentDashboard() {
   return (
     <MainLayout>
     <div>
-      <h1>Student Dashboard</h1>
+      <h1>Bar Graph</h1>
       <CustomBarChart data={data} />
     </div>
     </MainLayout>

@@ -7,7 +7,7 @@ function Graph() {
   return (
     <MainLayout>
       <div className="dashboard-container">
-        <h1>Welcome to the Students Dashboard</h1>
+        <h1>Graphs</h1>
         <nav>
           <ul>
             <li>

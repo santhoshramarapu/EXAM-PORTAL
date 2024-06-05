@@ -22,7 +22,7 @@ function SubjectDashboard() {
   return (
     <MainLayout>
     <div>
-      <h1>Subject Dashboard</h1>
+      <h1>Pie Chart</h1>
       <CustomPieChart data={data} />
     </div>
     </MainLayout>
