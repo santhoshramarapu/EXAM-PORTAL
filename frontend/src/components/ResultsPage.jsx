@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import '../../src/styles/ResultsPage.css';
 import MainLayout from './MainLayout';
 import { GoBackButton, EditButton } from './Logout';
+import EmailForm from './EmailForm'; // Import the EmailForm component
 
 const ResultPage = () => {
   const { hallTicketNo } = useParams();
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  
+
   const buttonPosition = {
     top: '550px',
     left: '740px',
@@ -67,6 +68,14 @@ const ResultPage = () => {
         
         <GoBackButton position={buttonPosition} />
         <EditButton position={editCss} handleEdit={handleEdit} />
+
+        {/* Pass result and recipientEmail props to EmailForm */}
+        {result && (
+          <EmailForm 
+            result={result} 
+            recipientEmail={result.email} 
+          />
+        )}
       </div>
     </MainLayout>
   );

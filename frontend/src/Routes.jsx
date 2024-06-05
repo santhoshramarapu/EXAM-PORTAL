@@ -13,6 +13,7 @@ import ResultPage from './components/ResultsPage';
 import Graph from './components/dashboard';
 import StudentDashboard from './components/StudentDashboard';
 import SubjectDashboard from './components/SubjectDashboard';
+import EmailForm from './components/EmailForm';
 
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/students" element={<StudentDashboard/>} /> 
           <Route path="/subjects" element={<SubjectDashboard />} /> 
           <Route path="/Graph" element={<Graph/>}/>
+          <Route path="/Email" element={<EmailForm/>}/>
         </Routes>
       </div>
     </Router>

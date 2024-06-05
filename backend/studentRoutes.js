@@ -68,6 +68,19 @@ router.post('/studentform', (req, res) => {
         )
     WHERE hallticketNo = ?;
 `;
+const updateEmailsQuery = `
+            UPDATE students
+            SET email = CONCAT(stdname, '@gmail.com');
+        `;
+
+                connection.query(updateEmailsQuery, (err, result) => {
+                    if (err) {
+                        console.error('Error updating emails:', err);
+                        res.status(500).send('Error updating email addresses.');
+                        return;
+                    }
+
+                    res.send('Column added and emails updated successfully.');
 
     connection.query(insertStudentQuery, [hallticketNo, stdname], (err) => {
         if (err) {
@@ -115,6 +128,7 @@ router.post('/studentform', (req, res) => {
             });
         });
     });
+});
 });
 });
 
