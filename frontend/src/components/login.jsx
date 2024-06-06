@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
@@ -10,6 +10,13 @@ const LoginForm = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { isLoggedIn, login } = useAuth(); // Get the isLoggedIn state and login function from AuthContext
+
+  useEffect(() => {
+    // Redirect to homepage if already logged in
+    if (isLoggedIn) {
+      navigate("/Homepage");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,12 +38,6 @@ const LoginForm = () => {
       }
     }
   };
-
-  // Redirect to homepage if already logged in
-  if (isLoggedIn) {
-    navigate("/Homepage");
-    return null; // Render nothing
-  }
 
   return (
     <div className="container">
