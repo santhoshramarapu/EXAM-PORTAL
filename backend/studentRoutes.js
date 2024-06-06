@@ -3,12 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('./database');
-const db = require('./database');
-const PDFDocument = require('pdfkit');
-const nodemailer = require('nodemailer');
 
-
-
+// Getting the students names for the dropdown//
 router.post('/students', (req, res) => {
     const naming = 'select stdname from students;';
     connection.query(naming, (err, results) => {
@@ -19,7 +15,7 @@ router.post('/students', (req, res) => {
     });
 });
 
-
+//Api for the student form submission //
 router.post('/studentform', (req, res) => {
     const { stdname, hallticketNo, english, java, python, cpp } = req.body;
     console.log(req.body);
@@ -237,24 +233,12 @@ router.put('/edit/:hallticketNo', (req, res) => {
         WHERE hallticketNo = ?;
     `;
 
-    // db.getConnection((err, connection) => {
-    //     if (err) {
-    //         console.error('Error getting connection from db:', err);
-    //         return res.status(500).send('Database error.');
-    //     }
-
-    //     connection.beginTransaction((err) => {
-    //         if (err) {
-    //             console.error('Error beginning transaction:', err);
-    //             // connection.release();
-    //             return res.status(500).send('Database error.');
-    //         }
-
+   
     connection.query(updateSubjectsQuery, [english, java, python, cpp, hallticketNo], (err) => {
         if (err) {
             console.error('Error updating subjects:', err);
             connection.rollback(() => {
-                // connection.release();
+              
                 res.status(500).send('Error updating subjects.');
             });
             return;
@@ -264,7 +248,7 @@ router.put('/edit/:hallticketNo', (req, res) => {
             if (err) {
                 console.error('Error updating student marks:', err);
                 connection.rollback(() => {
-                    // connection.release();
+                 
                     res.status(500).send('Error updating student marks.');
                 });
                 return;
@@ -274,20 +258,19 @@ router.put('/edit/:hallticketNo', (req, res) => {
                 if (err) {
                     console.error('Error committing transaction:', err);
                     connection.rollback(() => {
-                        // connection.release();
+                       
                         res.status(500).send('Error committing transaction.');
                     });
                     return;
                 }
 
-                //connection.release();
+               
                 res.status(200).send('Student marks updated successfully');
             });
         });
     });
 });
-// });
-// });
+
 
 
 
@@ -304,6 +287,10 @@ router.get('/barChartData', (req, res) => {
     });
   });
   
+
+
+
+
   // API to fetch data for pie chart (individual subject marks per student)
   router.get('/pieChartData', (req, res) => {
     const sql = `
@@ -327,94 +314,6 @@ router.get('/barChartData', (req, res) => {
   });
 
 
-// Nodemailer configuration
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'your-email@gmail.com', // replace with your email
-      pass: 'your-password', // replace with your email password or app-specific password
-    },
-  });
-  
-  router.get('/generate-pdf/:hallticketNo', (req, res) => {
-    const hallticketNo = req.params.hallticketNo;
-    const fetchStudentQuery = `
-      SELECT students.*, subjects.*
-      FROM students
-      JOIN subjects ON students.hallticketNo = subjects.hallticketNo
-      WHERE students.hallticketNo = ?
-    `;
-  
-    connection.query(fetchStudentQuery, [hallticketNo], (err, results) => {
-      if (err) {
-        console.error('Error fetching data:', err);
-        return res.status(500).send('Error fetching data from the database.');
-      }
-  
-      if (results.length === 0) {
-        return res.status(404).send('Student not found.');
-      }
-  
-      const student = results[0];
-      const doc = new PDFDocument();
-  
-      // Create a buffer to store the PDF content
-      const buffers = [];
-      doc.on('data', buffers.push.bind(buffers));
-      doc.on('end', () => {
-        const pdfData = Buffer.concat(buffers);
-  
-        // Email options
-        const mailOptions = {
-          from: 'your-email@gmail.com',
-          to: student.email,
-          subject: 'Student Result',
-          text: 'Please find attached the result of the student.',
-          attachments: [
-            {
-              filename: `${student.hallticketNo}_Result.pdf`,
-              content: pdfData,
-              contentType: 'application/pdf',
-            },
-          ],
-        };
-  
-        // Send email
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.error('Error sending email:', error);
-            return res.status(500).send('Error sending email.');
-          } else {
-            console.log('Email sent: ' + info.response);
-            res.status(200).send('Email sent successfully with PDF attachment!');
-          }
-        });
-      });
-  
-      // Add the title and student details to the PDF
-      doc.fontSize(25).text('Student Result', { align: 'center' });
-      doc.moveDown();
-  
-      // Add student details
-      doc.fontSize(12)
-        .text(`Hallticket No: ${student.hallticketNo}`)
-        .text(`Name: ${student.stdname}`)
-        .text(`Email: ${student.email}`)
-        .text(`Total Marks: ${student.totalMarks}`)
-        .text(`Result: ${student.result}`);
-  
-      // Add subject marks
-      doc.moveDown().fontSize(15).text('Subject Marks:', { underline: true });
-      doc.fontSize(12)
-        .text(`English: ${student.english}`)
-        .text(`Java: ${student.java}`)
-        .text(`Python: ${student.python}`)
-        .text(`C++: ${student.cpp}`);
-  
-      // Finalize the PDF
-      doc.end();
-    });
-  });
 
 
 module.exports = router;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CustomBarChart from './BarChart';
 import MainLayout from './MainLayout';
 
+
 function StudentDashboard() {
   const [data, setData] = useState([]);
 
@@ -12,12 +13,20 @@ function StudentDashboard() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
+  const dashboardStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+  };
+
   return (
     <MainLayout>
-    <div>
-      <h1>Bar Graph</h1>
-      <CustomBarChart data={data} />
-    </div>
+      <div style={dashboardStyle}>
+        <h1>Students</h1>
+        <CustomBarChart data={data} />
+       
+      </div>
     </MainLayout>
   );
 }

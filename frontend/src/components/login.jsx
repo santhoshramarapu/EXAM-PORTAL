@@ -9,7 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth(); // Get the login function from AuthContext
+  const { isLoggedIn, login } = useAuth(); // Get the isLoggedIn state and login function from AuthContext
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +31,12 @@ const LoginForm = () => {
       }
     }
   };
+
+  // Redirect to homepage if already logged in
+  if (isLoggedIn) {
+    navigate("/Homepage");
+    return null; // Render nothing
+  }
 
   return (
     <div className="container">

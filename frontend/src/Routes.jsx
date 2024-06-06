@@ -14,6 +14,7 @@ import Graph from './components/dashboard';
 import StudentDashboard from './components/StudentDashboard';
 import SubjectDashboard from './components/SubjectDashboard';
 import EmailForm from './components/EmailForm';
+import StudentDropdown from './components/StudentDropdown';
 
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/subjects" element={<SubjectDashboard />} /> 
           <Route path="/Graph" element={<Graph/>}/>
           <Route path="/Email" element={<EmailForm/>}/>
+          <Route path="/selectstudent" element={<StudentDropdown/>}/>
         </Routes>
       </div>
     </Router>
